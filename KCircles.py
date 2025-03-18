@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 class KCircles:
      
@@ -48,7 +47,7 @@ class KCircles:
         loss = 10**9
         for i in range(rep):
             self.fit(X, iter)
-            y_, loss_ = self.predict(X, loss=True)
+            _, loss_ = self.predict(X, loss=True)
             if loss_<loss:
                 loss = loss_
                 centers = self.centers.copy()
