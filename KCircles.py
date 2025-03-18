@@ -6,6 +6,7 @@ class KCircles:
     def __init__(self, k_circles, n_features=None) -> None:
         self.k_circles = k_circles
         self.n_features = n_features
+        self.centers = None
         self.radius = None
         self.histo = None
 
