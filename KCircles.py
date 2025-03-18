@@ -32,7 +32,7 @@ class KCircles:
             display = iter // 5
 
         for i in range(iter): 
-            D = np.column_stack([np.sqrt(((X-self.centers[j])**2).sum(axis=1)) for j in range(self.k_circles)])
+            D = np.sqrt(((X.reshape(1, 750, 2)-self.centers.reshape(5, 1, 2))**2).sum(axis=2)).T
             L = (D.copy() - np.array(self.radius).reshape(1, self.k_circles))**2
             y = L.argmin(axis=1)
             for j in range(self.k_circles):
