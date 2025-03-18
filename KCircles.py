@@ -21,6 +21,7 @@ class KCircles:
         self.radius = np.random.rand(self.k_circles) + 0.5
      
     def fit(self, X, iter=2000, init=True) -> None:
+        samples, features = X.sample
         if init:
             self.init_paramters(X)
 
@@ -32,7 +33,7 @@ class KCircles:
             display = iter // 5
 
         for i in range(iter): 
-            D = np.sqrt(((X.reshape(1, 750, 2)-self.centers.reshape(5, 1, 2))**2).sum(axis=2)).T
+            D = np.sqrt(((X.reshape(1, samples, features)-self.centers.reshape(self.k_circles, 1, samples))**2).sum(axis=2)).T
             L = (D.copy() - np.array(self.radius).reshape(1, self.k_circles))**2
             y = L.argmin(axis=1)
             for j in range(self.k_circles):
