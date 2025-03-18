@@ -10,6 +10,7 @@ class KCircles:
         self.histo = None
 
     def init_paramters(self, X):
+        self.histo = None
         std = X.std(axis=0).reshape(self.n_features)
         med = np.median(X, axis=0).reshape(self.n_features)
         centers = []
@@ -24,14 +25,8 @@ class KCircles:
         samples, features = X.shape
         if init:
             self.init_paramters(X)
-
         if self.histo == None :
             self.histo = [self.centers.copy()]
-
-        display = 1
-        if iter>5:
-            display = iter // 5
-
         for i in range(iter): 
             D = np.sqrt(((X.reshape(1, samples, features)-self.centers.reshape(self.k_circles, 1, samples))**2).sum(axis=2)).T
             L = (D.copy() - np.array(self.radius).reshape(1, self.k_circles))**2
@@ -45,10 +40,6 @@ class KCircles:
                 grad = grad.sum(axis=0)
                 self.radius[j] -= 1/10**2 * grad[0]
                 self.centers[j] = self.centers[j] - 1/10**1 * grad[1:]
-            if i % display == 0:
-                for j in range(self.k_circles):
-                    #print(j, ':', self.centers[j], self.centers[j])
-                    pass
             self.histo.append(self.centers.copy())
 
     def multi_fit(self, X, iter, rep):
