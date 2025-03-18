@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 class KCircles:
      
-    def __init__(self, k_circles, n_features=2) -> None:
+    def __init__(self, k_circles, n_features=None) -> None:
         self.k_circles = k_circles
         self.n_features = n_features
         self.radius = None
@@ -23,6 +23,7 @@ class KCircles:
      
     def fit(self, X, iter=2000, init=True) -> None:
         samples, features = X.shape
+        self.n_features = features
         if init:
             self.init_paramters(X)
         if self.histo == None :
