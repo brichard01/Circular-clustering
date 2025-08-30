@@ -29,7 +29,7 @@ class KCircles:
         if self.histo == None :
             self.histo = [self.centers.copy()]
         for i in range(iter): 
-            D = np.sqrt(((X.reshape(1, samples, features)-self.centers.reshape(self.k_circles, 1, samples))**2).sum(axis=2)).T
+            D = np.sqrt(((X.reshape(1, samples, features)-self.centers.reshape(self.k_circles, 1, features))**2).sum(axis=2)).T
             L = (D.copy() - np.array(self.radius).reshape(1, self.k_circles))**2
             y = L.argmin(axis=1)
             for j in range(self.k_circles):
@@ -60,7 +60,7 @@ class KCircles:
      
     def predict(self, X, loss=False):
         samples, features = X.shape
-        D = np.sqrt(((X.reshape(1, samples, features)-self.centers.reshape(self.k_circles, 1, samples))**2).sum(axis=2)).T
+        D = np.sqrt(((X.reshape(1, samples, features)-self.centers.reshape(self.k_circles, 1, features))**2).sum(axis=2)).T
         L = (D.copy() - np.array(self.radius).reshape(1, self.k_circles))**2
         if loss:
             return L.argmin(axis=1), L.min(axis=1).sum()
